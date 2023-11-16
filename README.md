@@ -72,7 +72,33 @@ Tests should never be run against the production environment.
 To get representative results of expected production system, the staging environment should be temporarily flexed up to 
 match production.
 
-TODO: add full details of how to do this.
+This should be done by editing the following files in the https://github.com/ministryofjustice/cloud-platform-environments
+repository, and issuing a PR:
+* namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-staging/02-limitrange.yaml
+* namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-staging/resources/opensearch.tf
+* namespaces/live.cloud-platform.service.justice.gov.uk/prisoner-content-hub-staging/resources/rds.tf
+
+Each has clearly marked sections beginning
+
+> &#8203;# This is the normal setting for staging
+
+or
+
+> &#8203;# These are the normal settings for staging
+
+These should be commented out, and the corresponding sections marked
+
+> &#8203;# These are the settings to flex staging up to match production
+
+or
+
+> &#8203;# This setting is to flex staging up to match production. 
+
+should be uncommented.
+
+**It is vital that these resources are scaled back down as soon as possible to avoid unnecessary AWS costs.**
+
+TODO: add details on clearing caches on front and back end systems.
 
 ## Running the Load Testing
 
@@ -83,3 +109,5 @@ Run the load test by issuing the following command from the root of the reposito
 Browsable output of the testing will then be available by opening output/html/index.html.
 Raw output will be available in output/output.csv.
 Application logging will be available in jmeter.log in the root of the repository.
+
+TODO: add info on regenerating the output from a restricted data set.
