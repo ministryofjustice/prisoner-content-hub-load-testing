@@ -20,6 +20,14 @@ Install via brew:
 
 `brew install jmeter`
 
+### Redis & Stunnel
+
+Redis and Stunnel are required if clearing the front end cache prior to running load testing is required.
+
+Install via brew:
+
+`brew install stunnel redis`
+
 ## Editing Configuration
 
 Run the JMeter GUI with
@@ -101,6 +109,26 @@ should be uncommented.
 TODO: add details on clearing caches on front and back end systems.
 
 ## Running the Load Testing
+
+### Preparation
+
+If the staging environment has been flexed up, the Drupal search index will need regenerating before running load 
+testing at admin/config/search/search-api/index/content_for_search.
+
+Depending on the intention of the test, you may also wish to clear Drupal's cache and the Front End cache.
+
+Drupal's cache can be cleared by running the following command from a prisoner-content-hub-backend pod:
+
+```
+drush cache-rebuild; drush cache:force-clear-page
+```
+
+The Front End cache is stored in Redis. To clear this cache, you must set up a port forwarding pod to access the Redis
+instance referred to by the frontend-redis k8s secret and delete the cache manually.
+
+See https://dsdmoj.atlassian.net/wiki/spaces/HUB/pages/4181262414/Content+Hub+Front+End+Elasticache+Redis for details.
+
+### Execution
 
 Run the load test by issuing the following command from the root of the repository
 
