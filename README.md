@@ -113,10 +113,7 @@ TODO: add details on clearing caches on front and back end systems.
 
 ### Preparation
 
-If the staging environment has been flexed up, the Drupal search index will need regenerating before running load
-testing at admin/config/search/search-api/index/content_for_search.
-
-Depending on the intention of the test, you may also wish to clear Drupal's cache and the Front End cache.
+Depending on the intention of the test, you may wish to clear Drupal's cache and the Front End cache.
 
 Drupal's cache can be cleared by running the following command from a prisoner-content-hub-backend pod:
 
